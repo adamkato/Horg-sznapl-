@@ -1,0 +1,59 @@
+﻿<UserControl x:Class="CatchLog.Wpf.Views.CatchesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="White">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Fogások Kezelése és Statisztika" FontSize="22" FontWeight="Bold" Foreground="#1E293B" Margin="0,0,0,15"/>
+
+        <Border Grid.Row="1" Background="#F1F5F9" Padding="12" CornerRadius="6" Margin="0,0,0,15">
+            <WrapPanel VerticalAlignment="Center">
+                <TextBlock Text="Halfaj:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                <TextBox x:Name="SpeciesBox" Width="110" Padding="4" Margin="0,0,12,0"/>
+
+                <TextBlock Text="Súly (kg):" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                <TextBox x:Name="WeightBox" Width="60" Padding="4" Margin="0,0,12,0"/>
+
+                <TextBlock Text="Horgász:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                <ComboBox x:Name="AnglerCombo" DisplayMemberPath="Name" SelectedValuePath="Id" Width="130" Margin="0,0,12,0"/>
+
+                <TextBlock Text="Helyszín:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                <ComboBox x:Name="SpotCombo" DisplayMemberPath="Name" SelectedValuePath="Id" Width="150" Margin="0,0,12,0"/>
+
+                <Button Content="+ Fogás Rögzítése" Click="AddCatch_Click" Background="#2563EB" Foreground="White" Padding="12,5" BorderThickness="0" Cursor="Hand"/>
+            </WrapPanel>
+        </Border>
+
+        <DataGrid x:Name="CatchesGrid" Grid.Row="2" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" GridLinesVisibility="Horizontal" HeadersVisibility="Column">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="40"/>
+                <DataGridTextColumn Header="Halfaj" Binding="{Binding Species}" Width="120"/>
+                <DataGridTextColumn Header="Súly (kg)" Binding="{Binding WeightKg}" Width="80"/>
+                <DataGridTextColumn Header="Horgász" Binding="{Binding Angler.Name}" Width="150"/>
+                <DataGridTextColumn Header="Helyszín" Binding="{Binding Spot.Name}" Width="180"/>
+                <DataGridTextColumn Header="Dátum" Binding="{Binding CaughtAt, StringFormat=yyyy.MM.dd}" Width="100"/>
+                <DataGridTemplateColumn Header="Művelet" Width="80">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Törlés" Click="DeleteCatch_Click" Tag="{Binding Id}" Background="#EF4444" Foreground="White" BorderThickness="0" Padding="6,2"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Border Grid.Row="3" Background="#EFF6FF" BorderBrush="#BFDBFE" BorderThickness="1" Padding="12" CornerRadius="6" Margin="0,15,0,0">
+            <StackPanel Orientation="Horizontal">
+                <Button Content="🏆 Legnagyobb hal lekérdezése" Click="BiggestCatch_Click" Background="#059669" Foreground="White" Padding="10,5" BorderThickness="0" Margin="0,0,15,0"/>
+                <Button Content="⚖️ Kiválasztott horgász összfogása" Click="TotalWeight_Click" Background="#D97706" Foreground="White" Padding="10,5" BorderThickness="0" Margin="0,0,15,0"/>
+                <TextBlock x:Name="CustomResultText" Text="Kattints egy gombra a statisztikához!" VerticalAlignment="Center" FontWeight="SemiBold" Foreground="#1E3A8A"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

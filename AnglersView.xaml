@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="CatchLog.Wpf.Views.AnglersView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="White">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Horgászok Nyilvántartása" FontSize="22" FontWeight="Bold" Foreground="#1E293B" Margin="0,0,0,15"/>
+
+        
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,10">
+            <TextBlock Text="Név:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+            <TextBox x:Name="NameBox" Width="160" Padding="4" Margin="0,0,15,0"/>
+            <TextBlock Text="Engedélyszám:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+            <TextBox x:Name="LicenseBox" Width="130" Padding="4" Margin="0,0,15,0"/>
+            <Button Content="+ Hozzáadás" Click="Add_Click" Background="#2563EB" Foreground="White" Padding="12,5" BorderThickness="0"/>
+        </StackPanel>
+
+        
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,0,15">
+            <TextBox x:Name="SearchBox" Width="200" Padding="4" Margin="0,0,10,0"/>
+            <Button Content="Keresés névre" Click="Search_Click" Background="#059669" Foreground="White" Padding="10,4" BorderThickness="0" Margin="0,0,10,0"/>
+            <Button Content="Összes mutatása" Click="Reset_Click" Padding="10,4"/>
+        </StackPanel>
+
+        <DataGrid x:Name="AnglersGrid" Grid.Row="3" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
+                <DataGridTextColumn Header="Név" Binding="{Binding Name}" Width="200"/>
+                <DataGridTextColumn Header="Állami Jegy Száma" Binding="{Binding LicenseNumber}" Width="180"/>
+                <DataGridTemplateColumn Header="Művelet" Width="80">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Törlés" Click="Delete_Click" Tag="{Binding Id}" Background="#EF4444" Foreground="White" BorderThickness="0" Padding="6,2"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>
